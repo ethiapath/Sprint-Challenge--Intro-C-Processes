@@ -9,7 +9,6 @@
 int main(int argc, char **argv)
 {
   // Parse command line
-  printf("There are %d command line argument(s):\n", argc);
   char *dirpath = malloc(128 * sizeof(char));
   int noArg;
 
@@ -21,7 +20,7 @@ int main(int argc, char **argv)
     dirpath = argv[1];
     strcat(dirpath, "/");
   }
-  printf("dirpath \"%s\"\n", dirpath);
+  // printf("dirpath \"%s\"\n", dirpath);
   // Open directory
   DIR *d = opendir(dirpath);
 
@@ -42,7 +41,7 @@ int main(int argc, char **argv)
   if (noArg) {
 
   }
-  int cycle = 0;
+  // int cycle = 0;
    while (dirReader != NULL)
    {
 
@@ -50,22 +49,20 @@ int main(int argc, char **argv)
       strcat(dirBuf, currentDir);
     } else {
       // strcat(dirBuf, )
-      dirBuf = strcat(dirBuf, dirpath);
+      dirBuf = strcat(dirBuf, dirpath);         // put dirpath into dirBuf
     }
-    dirBuf = strcat(dirBuf, dirReader->d_name);
+    dirBuf = strcat(dirBuf, dirReader->d_name); // append filename to dirpath
 
-    printf("dirbuf:%d \"%s\" - ",cycle, dirBuf);
+    // printf("dirbuf:%d \"%s\" %20lld - ",cycle, dirBuf);
     stat(dirBuf, &buf);
-    printf("stat:%d %10lld - ", cycle, buf.st_size);
-    printf("d_name:%d \"%s\" \n", cycle, dirReader->d_name);
+    printf("%10lld", buf.st_size);
+    printf(" \"%s\"\n", dirReader->d_name);
 
     dirReader = readdir(d);
 
-
-
     // printf(" dirReader: %s \t", dirReader->d_type);
     dirBuf[0] = '\0';
-    cycle++;
+    // cycle++;
   } 
 
   // Close directory
